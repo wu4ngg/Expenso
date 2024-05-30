@@ -1,3 +1,4 @@
-# hdmgr
+# SpendingMGR
 
-A new Flutter project.
+
+too lazy to write readme.
