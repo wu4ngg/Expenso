@@ -6,6 +6,7 @@ import 'package:hdmgr/components/statsbar.dart';
 import 'package:hdmgr/models/purpose.dart';
 import 'package:hdmgr/models/spending.dart';
 import 'package:hdmgr/pages/home_screen.dart';
+import 'package:hdmgr/pages/settings_screen.dart';
 
 void main() {
   runApp(ProviderScope(child: MainApp()));
@@ -20,7 +21,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   int _selectedIndex = 0;
-  final List<Widget> _pages = const [HomePage(), HomePage(), HomePage()];
+  final List<Widget> _pages = const [HomePage(), HomePage(), SettingsPage()];
   final ColorScheme colorScheme = const ColorScheme(
       brightness: Brightness.light,
       primary: Color(0xFFC6D6FF),
@@ -77,13 +78,12 @@ class _MainAppState extends State<MainApp> {
                 }
                 return colorScheme.primary;
               }),
-
               elevation: MaterialStateProperty.resolveWith((states) {
                 if (states.contains(MaterialState.disabled) ||
                     states.contains(MaterialState.pressed)) {
-                  return 0;
+                  return 3;
                 }
-                return 3;
+                return 0;
               }),
               shadowColor: MaterialStateProperty.all(colorScheme.primary),
               foregroundColor: MaterialStateProperty.all(colorScheme.onPrimary),

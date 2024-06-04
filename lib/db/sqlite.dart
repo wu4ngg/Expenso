@@ -61,7 +61,7 @@ Future<double> getSumPriceSpending(DateTime? date) async {
   final db = await database();
   final total =
       await db.rawQuery("SELECT SUM(PRICE) AS SUM_PRICE, DATE(DATE) AS DATE FROM SPENDING ${date != null ? "WHERE DATE(DATE) = DATE('${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}')" : ""}");
-  return double.parse(total[0]['SUM_PRICE'].toString());
+  return total[0]['SUM_PRICE'] != null ? double.parse(total[0]['SUM_PRICE'].toString()) : 0;
 }
 
 Future<List<Purpose>> getPurposesById(int id) async {

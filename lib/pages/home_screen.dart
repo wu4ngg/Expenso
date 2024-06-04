@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hdmgr/components/error.dart';
 import 'package:hdmgr/components/spending_card.dart';
 import 'package:hdmgr/components/statsbar.dart';
 import 'package:hdmgr/db/sqlite.dart';
@@ -67,7 +68,7 @@ class _HomePageState extends State<HomePage> {
               final AsyncValue<SpendingData> spendingData =
                   ref.watch(spendingListProvider);
               return switch (spendingData) {
-                AsyncData(:final value) => ListView.separated(
+                AsyncData(:final value) => value.spendings!.length > 0 ? ListView.separated(
                     itemCount: value.spendings!.length,
                     separatorBuilder: (context, index) => Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -79,8 +80,8 @@ class _HomePageState extends State<HomePage> {
                                     .onBackground))),
                     itemBuilder: (context, index) =>
                         SpendingCard(spending: value.spendings![index], total: value.spendingCount,),
-                  ),
-                  AsyncError(:final error, :final stackTrace) => Center(child: Text("Lỗi: $error"),),
+                  ) : const Center(child: ErrorScreen(icon: Icons.list_alt, title: "Danh sách trống", subtitle: "Hãy ấn nút 'Thêm mục chi tiêu' để bắt đầu quản lý chi tiêu!"),),
+                  AsyncError(:final error, :final stackTrace) => Center(child: ErrorScreen(icon: Icons.list_alt, title: "Lỗi!", subtitle: 'Đã xảy ra lỗi trong quá trình nhận thông tin \n thông tin lỗi: $error'),),
                 _ => Center(child: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary,),)
               };
             },

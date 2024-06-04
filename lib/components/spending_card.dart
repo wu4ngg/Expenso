@@ -50,11 +50,19 @@ class _SpendingCardState extends ConsumerState<SpendingCard> {
             SizedBox(
                 width: 16,
                 height: 16,
-                child: CircularProgressIndicator(
-                  value: widget.spending.price! / widget.total,
-                  backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-                  color: Theme.of(context).colorScheme.secondary,
-                )),
+                child: TweenAnimationBuilder(
+                    duration: const Duration(seconds: 1),
+                    tween: Tween<double>(
+                        begin: 0, end: widget.spending.price! / widget.total),
+                    curve: Curves.easeInOutCubicEmphasized,
+                    builder: (context, value, child) {
+                      return CircularProgressIndicator(
+                        value: value,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.surfaceVariant,
+                        color: Theme.of(context).colorScheme.secondary,
+                      );
+                    })),
             const SizedBox(width: 5),
             PopupMenuButton(
               itemBuilder: (context) => [
