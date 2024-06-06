@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hdmgr/components/error.dart';
@@ -11,8 +9,6 @@ import 'package:hdmgr/models/spending.dart';
 import 'dart:developer' as developer;
 import 'package:hdmgr/models/spending_data.dart';
 import 'package:hdmgr/providers/spending_provider.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -68,7 +64,7 @@ class _HomePageState extends State<HomePage> {
               final AsyncValue<SpendingData> spendingData =
                   ref.watch(spendingListProvider);
               return switch (spendingData) {
-                AsyncData(:final value) => value.spendings!.length > 0 ? ListView.separated(
+                AsyncData(:final value) => value.spendings!.isNotEmpty ? ListView.separated(
                     itemCount: value.spendings!.length,
                     separatorBuilder: (context, index) => Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -81,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) =>
                         SpendingCard(spending: value.spendings![index], total: value.spendingCount,),
                   ) : const Center(child: ErrorScreen(icon: Icons.list_alt, title: "Danh sách trống", subtitle: "Hãy ấn nút 'Thêm mục chi tiêu' để bắt đầu quản lý chi tiêu!"),),
-                  AsyncError(:final error, :final stackTrace) => Center(child: ErrorScreen(icon: Icons.list_alt, title: "Lỗi!", subtitle: 'Đã xảy ra lỗi trong quá trình nhận thông tin \n thông tin lỗi: $error'),),
+                  AsyncError(:final error) => Center(child: ErrorScreen(icon: Icons.list_alt, title: "Lỗi!", subtitle: 'Đã xảy ra lỗi trong quá trình nhận thông tin \n thông tin lỗi: $error'),),
                 _ => Center(child: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary,),)
               };
             },

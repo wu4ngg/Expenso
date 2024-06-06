@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hdmgr/components/spending_card.dart';
-import 'package:hdmgr/components/statsbar.dart';
-import 'package:hdmgr/models/purpose.dart';
-import 'package:hdmgr/models/spending.dart';
 import 'package:hdmgr/pages/home_screen.dart';
 import 'package:hdmgr/pages/settings_screen.dart';
+import 'package:path/path.dart';
 
 void main() {
-  runApp(ProviderScope(child: MainApp()));
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatefulWidget {
-  MainApp({super.key});
+  const MainApp({super.key});
 
   @override
   State<MainApp> createState() => _MainAppState();
@@ -37,7 +35,6 @@ class _MainAppState extends State<MainApp> {
       surfaceVariant: Color(0xFF515151),
       onSurfaceVariant: Color(0xFFFFFFFF),
       surfaceTint: Color(0xFFFFFFFF));
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -68,7 +65,10 @@ class _MainAppState extends State<MainApp> {
               padding: MaterialStateProperty.all(
                   const EdgeInsets.fromLTRB(20, 10, 20, 10))),
         ),
-        textButtonTheme: TextButtonThemeData(style: ButtonStyle(textStyle: MaterialStateProperty.all(TextStyle(color: colorScheme.secondary)))),
+        textButtonTheme: TextButtonThemeData(
+            style: ButtonStyle(
+                textStyle: MaterialStateProperty.all(
+                    TextStyle(color: colorScheme.secondary)))),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
               backgroundColor:
@@ -103,6 +103,12 @@ class _MainAppState extends State<MainApp> {
             titleLarge: GoogleFonts.inter(
                 textStyle:
                     const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            titleMedium: GoogleFonts.inter(
+                textStyle:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            bodySmall: GoogleFonts.inter(
+                textStyle:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
             displaySmall: GoogleFonts.inter(
                 textStyle:
                     const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
@@ -141,6 +147,24 @@ class _MainAppState extends State<MainApp> {
               .bodyLarge!
               .copyWith(fontFamily: "Inter", color: const Color(0x4B000000)),
         ),
+        segmentedButtonTheme: SegmentedButtonThemeData(
+          style: ButtonStyle(backgroundColor: MaterialStateProperty.resolveWith((states) {
+            if(states.contains(MaterialState.selected)) {
+              return colorScheme.primary;
+            }
+            return colorScheme.surface;
+          },
+          ), 
+          
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              side: BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.all(Radius.circular(16))
+            ),
+          ),
+          padding: MaterialStateProperty.all(EdgeInsets.all(8))
+          )
+        ),
         switchTheme: SwitchThemeData(
             thumbColor: MaterialStateProperty.resolveWith((states) {
           if (states.contains(MaterialState.selected)) {
@@ -153,6 +177,10 @@ class _MainAppState extends State<MainApp> {
           }
           return colorScheme.surface;
         })),
+        listTileTheme: ListTileThemeData(
+          subtitleTextStyle: Theme.of(context).textTheme.bodySmall,
+          iconColor: colorScheme.onBackground
+        ),
         useMaterial3: true,
       ),
       home: Scaffold(

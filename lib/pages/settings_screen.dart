@@ -1,7 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hdmgr/models/settings_item.dart';
+import 'package:hdmgr/pages/about_screen.dart';
+import 'package:hdmgr/pages/expense_settings.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
@@ -15,6 +16,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     SettingsItem(
       leadingIcon: Icons.attach_money_outlined,
       title: "Cài đặt chi tiêu",
+      targetPage: const ExpenseSettings()
     ),
     SettingsItem(
       leadingIcon: Icons.brush_outlined,
@@ -33,12 +35,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       title: "Điều khoản",
     ),
     SettingsItem(
-      leadingIcon: Icons.code,
-      title: "Giấy phép mã nguồn mở",
-    ),
-    SettingsItem(
       leadingIcon: Icons.info_outline,
       title: "Thông tin ứng dụng",
+      targetPage: const AboutScreen()
     )
   ];
   @override
@@ -86,7 +85,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           ),
           Expanded(
               child: Padding(
-                padding: EdgeInsets.only(top: 0),
+                padding: const EdgeInsets.only(top: 0),
                 child: ListView.separated(
                     itemBuilder: (context, index) => Padding(
                       padding: EdgeInsets.only(top: index == 0 ? 10 : 0),
@@ -96,7 +95,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                               color: Colors.black,
                             ),
                             title: Text(settings[index].title!),
-                            onTap: () {},
+                            onTap: settings[index].targetPage == null ? () {} : () {
+                              Navigator.push(context, MaterialPageRoute(builder:(context) => settings[index].targetPage!,));
+                            },
                           ),
                     ),
                     separatorBuilder: (context, index) => const Divider(indent: 20, endIndent: 20,),

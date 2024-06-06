@@ -1,11 +1,6 @@
-import 'dart:ffi';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hdmgr/db/sqlite.dart';
 import 'package:hdmgr/models/purpose.dart';
 import 'package:hdmgr/models/spending.dart';
 import 'package:hdmgr/providers/spending_provider.dart';

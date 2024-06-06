@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hdmgr/models/spending.dart';
 import 'package:hdmgr/providers/spending_provider.dart';
 import 'package:intl/intl.dart';
-import 'dart:developer' as developer;
 
 enum Item { delete, edit }
 

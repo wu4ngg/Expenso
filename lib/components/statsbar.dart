@@ -4,25 +4,40 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hdmgr/dialog/add_item.dart';
 import 'package:hdmgr/models/spending_data.dart';
+import 'package:hdmgr/models/spending_limit.dart';
 import 'package:hdmgr/models/user_data.dart';
 import 'package:hdmgr/providers/spending_provider.dart';
 import 'package:hdmgr/providers/user_settings_provider.dart';
 import 'package:intl/intl.dart';
 
-class StatsBar extends ConsumerWidget {
+class StatsBar extends ConsumerStatefulWidget {
   const StatsBar({super.key});
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    void showAddItemDialog(BuildContext context) {
-      showDialog(context: context, builder: (context) => const AddItemDialog());
+  ConsumerState<ConsumerStatefulWidget> createState() => _StatsBarState();
+}
+
+class _StatsBarState extends ConsumerState<StatsBar> {
+  void showAddItemDialog(BuildContext context) {
+    showDialog(context: context, builder: (context) => const AddItemDialog());
+  }
+  NumberFormat formatter = NumberFormat("##,###.##");
+  double cur = 0;
+  double target = 1;
+  Future<void> getExpenseLimit() async {
+    final userData = await ref.watch(userSettingsProvider.future);
+    switch (userData.spendingLimitList![0].duration) {
+      case SpendingLimitType.all:
+        setState(() {
+          target = userData.spendingLimitList![0].value;
+        });
+        break;
+      default:
     }
+  }
+  @override
+  Widget build(BuildContext context) {
 
     final AsyncValue<SpendingData> spending = ref.watch(spendingListProvider);
-    final userData = ref.watch(userSettingsProvider);
-    NumberFormat formatter = NumberFormat("##,###.##");
-    double cur = 0;
-    double target = 100000;
     switch (spending) {
       case AsyncData(:final value):
         cur = value.spendingCount;
@@ -34,6 +49,7 @@ class StatsBar extends ConsumerWidget {
         cur = -1;
         break;
     }
+    getExpenseLimit();
     return Material(
         elevation: 15,
         child: Padding(

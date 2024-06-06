@@ -20,7 +20,7 @@ final spendingProvider = AutoDisposeFutureProvider<SpendingData>.internal(
 );
 
 typedef SpendingRef = AutoDisposeFutureProviderRef<SpendingData>;
-String _$spendingListHash() => r'f870fb6ce3fae62a5ad49282aabc4e918abd8531';
+String _$spendingListHash() => r'31864e0afa1dd96fd63c9db045223bd215c2b6e7';
 
 /// See also [SpendingList].
 @ProviderFor(SpendingList)

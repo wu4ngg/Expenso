@@ -34,9 +34,10 @@ class UserSettings extends _$UserSettings {
         spendingLimits.add(SpendingLimit(value: double.parse(tmp[2]), duration: SpendingLimitType.only, dateTime: DateTime.parse(tmp[1])));
       }
     }
-    return UserData();
+    return UserData(spendingLimitList: spendingLimits);
   }
   Future<void> setSpendingLimit(List<String> spendingLimit) async {
+    sharedPrefs = await SharedPreferences.getInstance();
     await sharedPrefs!.setStringList('spending_limits', spendingLimit);
     ref.invalidateSelf();
     await future;
