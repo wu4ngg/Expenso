@@ -28,13 +28,11 @@ class _MainAppState extends State<MainApp> {
       onSecondary: Color(0xFF000000),
       error: Color(0xFFFE8B72),
       onError: Color(0xFFFFFFFF),
-      background: Color(0xFFFFFFFF),
-      onBackground: Color(0xFF000000),
-      surface: Color(0xFFF3F3F3),
+      surface: Color(0xFFFFFFFF),
       onSurface: Color(0xFF000000),
-      surfaceVariant: Color(0xFF515151),
+      surfaceContainerHighest: Color(0xFF515151),
       onSurfaceVariant: Color(0xFFFFFFFF),
-      surfaceTint: Color(0xFFFFFFFF));
+      surfaceTint: Color(0xFFF1F1F1));
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,57 +40,57 @@ class _MainAppState extends State<MainApp> {
       theme: ThemeData(
         colorScheme: colorScheme,
         appBarTheme: AppBarTheme(
-          backgroundColor: colorScheme.background,
-          foregroundColor: colorScheme.onBackground,
+          backgroundColor: colorScheme.surface,
+          foregroundColor: colorScheme.onSurface,
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
             selectedIconTheme: IconThemeData(color: colorScheme.secondary),
             showSelectedLabels: false,
             showUnselectedLabels: false,
-            unselectedItemColor: colorScheme.onBackground,
+            unselectedItemColor: colorScheme.onSurface,
             type: BottomNavigationBarType.fixed),
         iconButtonTheme: IconButtonThemeData(
             style: ButtonStyle(
-                padding: MaterialStateProperty.all(const EdgeInsets.all(10)))),
+                padding: WidgetStateProperty.all(const EdgeInsets.all(10)))),
         filledButtonTheme: FilledButtonThemeData(
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(colorScheme.surface),
-              shape: MaterialStateProperty.resolveWith((states) {
+              backgroundColor: WidgetStateProperty.all(colorScheme.surfaceTint),
+              shape: WidgetStateProperty.resolveWith((states) {
                 double borderRadius = 20;
                 return RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(borderRadius));
               }),
-              padding: MaterialStateProperty.all(
+              padding: WidgetStateProperty.all(
                   const EdgeInsets.fromLTRB(20, 10, 20, 10))),
         ),
         textButtonTheme: TextButtonThemeData(
             style: ButtonStyle(
-                textStyle: MaterialStateProperty.all(
+                textStyle: WidgetStateProperty.all(
                     TextStyle(color: colorScheme.secondary)))),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
               backgroundColor:
-                  MaterialStateProperty.resolveWith<Color>((states) {
-                if (states.contains(MaterialState.disabled)) {
-                  return colorScheme.surface;
+                  WidgetStateProperty.resolveWith<Color>((states) {
+                if (states.contains(WidgetState.disabled)) {
+                  return colorScheme.surfaceTint;
                 }
                 return colorScheme.primary;
               }),
-              elevation: MaterialStateProperty.resolveWith((states) {
-                if (states.contains(MaterialState.disabled) ||
-                    states.contains(MaterialState.pressed)) {
+              elevation: WidgetStateProperty.resolveWith((states) {
+                if (!states.contains(WidgetState.disabled) ||
+                    states.contains(WidgetState.pressed)) {
                   return 3;
                 }
                 return 0;
               }),
-              shadowColor: MaterialStateProperty.all(colorScheme.primary),
-              foregroundColor: MaterialStateProperty.all(colorScheme.onPrimary),
-              shape: MaterialStateProperty.resolveWith((states) {
-                double borderRadius = 16;
+              shadowColor: WidgetStateProperty.all(colorScheme.primary),
+              foregroundColor: WidgetStateProperty.all(colorScheme.onPrimary),
+              shape: WidgetStateProperty.resolveWith((states) {
+                double borderRadius = 20;
                 return RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(borderRadius));
               }),
-              padding: MaterialStateProperty.all(
+              padding: WidgetStateProperty.all(
                   const EdgeInsets.fromLTRB(20, 10, 20, 10))),
         ),
         textTheme: TextTheme(
@@ -118,7 +116,7 @@ class _MainAppState extends State<MainApp> {
             elevation: 20,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            surfaceTintColor: colorScheme.background),
+            surfaceTintColor: colorScheme.surface),
         cardTheme: const CardTheme(elevation: 0),
         inputDecorationTheme: InputDecorationTheme(
           hintStyle: Theme.of(context)
@@ -128,51 +126,51 @@ class _MainAppState extends State<MainApp> {
           border: MaterialStateOutlineInputBorder.resolveWith((states) =>
               OutlineInputBorder(
                   borderSide:
-                      BorderSide(color: colorScheme.background, width: 1),
+                      BorderSide(color: colorScheme.surfaceTint, width: 1),
                   borderRadius: const BorderRadius.all(Radius.circular(16)))),
           focusedBorder: MaterialStateOutlineInputBorder.resolveWith((states) =>
-              states.contains(MaterialState.focused)
+              states.contains(WidgetState.focused)
                   ? OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: colorScheme.background, width: 1),
+                          BorderSide(color: colorScheme.surfaceTint, width: 1),
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(16),
                           topRight: Radius.circular(16)))
                   : Theme.of(context).inputDecorationTheme.border!),
           contentPadding: const EdgeInsets.all(16),
           filled: true,
-          fillColor: colorScheme.surface,
+          fillColor: colorScheme.surfaceTint,
           labelStyle: Theme.of(context)
               .textTheme
               .bodyLarge!
               .copyWith(fontFamily: "Inter", color: const Color(0x4B000000)),
         ),
         segmentedButtonTheme: SegmentedButtonThemeData(
-          style: ButtonStyle(backgroundColor: MaterialStateProperty.resolveWith((states) {
-            if(states.contains(MaterialState.selected)) {
+          style: ButtonStyle(backgroundColor: WidgetStateProperty.resolveWith((states) {
+            if(states.contains(WidgetState.selected)) {
               return colorScheme.primary;
             }
             return colorScheme.surface;
           },
           ), 
           
-          shape: MaterialStateProperty.all(
+          shape: WidgetStateProperty.all(
             RoundedRectangleBorder(
               side: BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.all(Radius.circular(16))
             ),
           ),
-          padding: MaterialStateProperty.all(EdgeInsets.all(8))
+          padding: WidgetStateProperty.all(EdgeInsets.all(8))
           )
         ),
         switchTheme: SwitchThemeData(
-            thumbColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
+            thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
             return const Color(0xFFFFFFFF);
           }
           return const Color(0xFF000000);
-        }), trackColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
+        }), trackColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
             return colorScheme.secondary;
           }
           return colorScheme.surface;

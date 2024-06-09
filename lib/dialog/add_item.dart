@@ -104,7 +104,7 @@ class _AddItemDialogState extends ConsumerState<AddItemDialog> {
                                     BorderRadius.all(Radius.circular(16)),
                                 color: _selectedIndex == index
                                     ? Theme.of(context).colorScheme.primary
-                                    : Theme.of(context).colorScheme.surface,
+                                    : Theme.of(context).colorScheme.surfaceTint,
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
