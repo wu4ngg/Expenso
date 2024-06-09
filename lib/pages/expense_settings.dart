@@ -51,7 +51,7 @@ class _ExpenseSettingsState extends ConsumerState<ExpenseSettings> {
         text: userData.spendingLimitList![0].value.toString() == '0.0'
             ? ''
             : userData.spendingLimitList![0].value.toString());
-    //TODO: get weekday expense limit
+    //TODO: get weekday expense limi
   }
 
   Future<void> setExpenseLimit(
