@@ -8,6 +8,9 @@ Yet another attempt at flutter (now with working CRUD via SQLite and Riverpod)
 <img src="https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white"/>
 <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white"/>
 <img src="https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white"/>
+<br>
+<br>
+<img src="https://github.com/wu4ngg/Expenso/assets/68984861/ff54bb72-9aab-4cb2-9559-273cf215cc64" height=400/>
 <hr/>
 </div>
 
