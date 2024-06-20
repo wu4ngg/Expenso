@@ -12,7 +12,7 @@ Yet another attempt at flutter (now with working CRUD via SQLite and Riverpod)
 </div>
 
 ## Tiến độ
-![](https://geps.dev/progress/45)
+![](https://geps.dev/progress/45)\
 45%. Xong SQLite, CRUD chi tiêu (Chưa sửa đc tại lười), giới hạn chi tiêu cơ bản.
 
 ## Where apk?
